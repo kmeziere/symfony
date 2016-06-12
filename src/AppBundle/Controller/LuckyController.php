@@ -4,18 +4,26 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class LuckyController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("lucky/number/{count}", name="luckyNumber")
      */
-    public function indexAction(Request $request)
+    public function NumberAction($count = 5)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-        ]);
+        $data = [];
+        for ($i = 0; $i < $count; $i++)
+            $data[] = rand(0, 100);
+
+        $numbersList = implode(", ", $data);
+
+        $html = $this->render(
+            'lucky/number.html.twig',
+            ['luckyNumberList'  =>  $numbersList]
+        );
+
+        return new Response($html);
     }
 }
