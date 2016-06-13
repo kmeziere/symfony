@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% for product in products %}
+        <h4>{{ product.name }}</h4>
+        Prix : {{ product.price }}€<br>
+        Description :
+        <p>{{ product.description }}. <a href="{{ path('show_article', { 'id': product.id }) }}">Lire la suite</a></p>
+    {% endfor %}
+{% endblock %}
